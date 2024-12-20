@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeepCore Mining Platform</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<style>
+        /* General Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; color: #fff; background: #1a1a1a; }
+        .btn { padding: 0.6rem 1.2rem; border: none; cursor: pointer; border-radius: 5px; transition: 0.3s; }
+
+        /* Welcome Page */
+        .welcome-page { display: flex; align-items: center; justify-content: center; height: 100vh; background: #222; }
+        .welcome-content { text-align: center; }
+        .btn-primary { background: #ffd700; color: #333; }
+
+        /* Dashboard */
+        .dashboard { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
+        .sidebar { background: #222; padding: 1.5rem; }
+        .sidebar a { color: #fff; text-decoration: none; display: block; padding: 1rem 0; }
+        .main-content { padding: 2rem; }
+        .wallet-card2 { background: #333; padding: 1.5rem; border-radius: 15px; margin-bottom: 1.9rem; }
+        .wallet-card, .pool-card { background: #333; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; }
+
+        /* Forms */
+        .form { display: flex; flex-direction: column; width: 300px; margin: 1rem auto; }
+        .form input { padding: 0.8rem; margin: 0.5rem 0; border-radius: 5px; border: none; }
+</style>
+</head>
+<body>
+
+<!-- Welcome Page with Sign-Up and Sign-In -->
+<div class="welcome-page" id="welcomePage">
+<div class="welcome-content">
+<h1>Welcome to DeepCore Mining</h1>
+<p>Earn crypto by mining Bitcoin, Ethereum, and more.</p>
+<button class="btn btn-primary" onclick="showLoginForm()">Sign In</button>
+<button class="btn btn-primary" onclick="showSignUpForm()">Sign Up</button>
+</div>
+</div>
+
+<!-- Sign In and Sign Up Forms -->
+<div class="form-container" id="formContainer" style="display: none;">
+<form class="form" id="loginForm" onsubmit="login(event)">
+<h2>Sign In</h2>
+<input type="text" placeholder="Username" required>
+<input type="password" placeholder="Password" required>
+<button class="btn btn-primary" type="submit">Log In</button>
+<p>Don’t have an account? <a href="#" onclick="showSignUpForm()">Sign Up</a></p>
+</form>
+
+<form class="form" id="signUpForm" onsubmit="signUp(event)" style="display: none;">
+<h2>Sign Up</h2>
+<input type="text" placeholder="Username" required>
+<input type="email" placeholder="Email" required>
+<input type="password" placeholder="Password" required>
+<button class="btn btn-primary" type="submit">Sign Up</button>
+<p>Already have an account? <a href="#" onclick="showLoginForm()">Log In</a></p>
+</form>
+</div>
+
+<!-- Main Dashboard -->
+<div class="dashboard" id="dashboard" style="display: none;">
+<!-- Sidebar -->
+<div class="sidebar">
+<a href="#" onclick="viewHome()">Home</a>
+<a href="#" onclick="viewWallet()">Wallet</a>
+<a href="#" onclick="viewMining()">Mining Pools</a>
+<a href="#" onclick="viewWithdrawal()">Withdrawal</a>
+</div>
+
+<!-- Main Content -->
+<div class="main-content" id="mainContent">
+<!-- Placeholder for main content sections (Wallet, Mining Pools, Admin Page) -->
+</div>
+</div>
+
+<script>
+    // Show and hide forms
+    function showLoginForm() {
+        document.getElementById('formContainer').style.display = 'flex';
+        document.getElementById('loginForm').style.display = 'block';
+        document.getElementById('signUpForm').style.display = 'none';
+        document.getElementById('welcomePage').style.display = 'none';
+    }
+
+    function showSignUpForm() {
+        document.getElementById('formContainer').style.display = 'flex';
+        document.getElementById('signUpForm').style.display = 'block';
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('welcomePage').style.display = 'none';
+    }
+
+    // Placeholder login function
+    function login(event) {
+        event.preventDefault();
+        document.getElementById('dashboard').style.display = 'grid';
+        document.getElementById('formContainer').style.display = 'none';
+    }
+
+    // Placeholder sign-up function
+    function signUp(event) {
+        event.preventDefault();
+        alert("Account created! Please log in.");
+        showLoginForm();
+    }
+
+    // Load different sections within the dashboard
+     function viewHome() {
+        document.getElementById('mainContent').innerHTML = `
+<h2>Welcome to DeepCore Mining</h2>
+<p>Your one-stop platform for cryptocurrency mining and earnings!</p>
+        `;
+        }
+    function viewWithdrawal() {
+        document.getElementById(`mainContent`).innerHTML = `
+<div class="wallet-card2">
+<button class="btn btn-primary" onclick=";PayPal()">
+<h2>PayPal<h/2></button>
+</div>
+<div class="wallet-card2">
+<button class="btn btn-primary" onclick="FaucetPay()">
+<h2>FaucetPay<h/2</button>
+</div>
+        `;
+       } 
+        function FaucetPay()  {
+        document.getElementById(`mainContent`).innerHTML = `
+<h2>FaucetPay Withdrawal</h2>
+<form id="faucetPayForm">
+<label for="faucetAddress">FaucetPay Address:</label>
+<input type="text" id="faucetAddress" required>
+<label for="faucetAmount">Amount:</label>
+<input type="number" id="faucetAmount" required>
+<label for="faucetCurrency">Currency:</label>
+<select id="faucetCurrency">
+<option value="BTC">Bitcoin (BTC)</option>
+<option value="ETH">Ethereum (ETH)</option>
+<option value="LTC">Litecoin (LTC)</option>
+<option value="BNB">Binance Beacon (BNB)</option>
+</select>
+<button type="button" onclick="processFaucetPayWithdrawal()">Withdraw via FaucetPay</button>
+</form>
+        `;
+       }
+    function PayPal()  {
+        document.getElementById(`mainContent`).innerHTML = `
+<h2>PayPal Withdrawal</h2>
+<form id="paypalForm">
+<label for="paypalEmail">PayPal Email:</label>
+<input type="email" id="paypalEmail" required>
+<label for="paypalAmount">Amount ($):</label>
+<input type="number" id="paypalAmount" required>
+<button type="button" onclick="processPayPalWithdrawal()">Withdraw via PayPal</button>
+</form>
+        `;
+        }
+    function viewWallet() {
+        document.getElementById('mainContent').innerHTML = `
+<div class="wallet-card">
+<h2>Bitcoin Balance</h2>
+<p>Balance:0.002 BTC</p>
+<button class="btn btn-primary" onclick="initiatePayPalWithdrawal('BTC', userBalances.BTC)">Withdraw</button>
+<div class="wallet-card">
+<h2>Ethereum Balance</h2>
+<p>Balance:0.5 ETH</p>
+<button class="btn btn-primary" onclick="initiatePayPalWithdrawal('ETH', userBalances.ETH)">Withdraw</button>
+</div>
+<div class="wallet-card">
+<h2>Litecoin Balance</h2>
+<p>Balance: 0.562 LTC</p>
+<button class="btn btn-primary" onclick="withdraw()">Withdraw</button>
+</div>
+<div class="wallet-card">
+<h2>BNB Balance</h2>
+<p>Balance: 1.25 BNB</p>
+<button class="btn btn-primary" onclick="withdraw()">Withdraw</button>
+</div>`;
+    }
+
+    function viewMining() {
+        document.getElementById('mainContent').innerHTML = `
+<div class="pool-card">
+<h3>Bitcoin Pool</h3>
+<p>Hash Rate: <span id="btcHashRate">50 TH/s</span></p>
+<p>Earned: <span id="btcEarnings">0</span> BTC</p>
+<button class="btn btn-primary" onclick="startMining('btc', 50)">Start Mining Bitcoin</button>
+</div>
+<div class="pool-card">
+<h3>Ethereum Pool</h3>
+<p>Hash Rate: <span id="ethHashRate">25 GH/s</span></p>
+<p>Earned: <span id="ethEarnings">0</span> ETH</p>
+<button class="btn btn-primary" onclick="startMining('eth', 25)">Start Mining Ethereum</button>
+</div>
+<div class="pool-card">
+<h3>Litecoin Pool</h3>
+<p>Hash Rate: <span id="ltcHashRate">75 GH/s</span></p>
+<p>Earned: <span id="ltcEarnings">0</span> LTC</p>
+<button class="btn btn-primary" onclick="startMining('ltc', 75)">Start Mining Litecoin</button>
+</div>`;
+    }
+
+    // Simulate mining by increasing earnings based on hash rate
+    let miningIntervals = {};
+
+    function startMining(coin, hashRate) {
+        // Prevent multiple mining sessions
+        if (miningIntervals[coin]) {
+            alert(`${coin.toUpperCase()} mining is already in progress!`);
+            return;
+        }
+
+        const earningsId = `${coin}Earnings`;
+        let earnings = 0;
+
+        // Convert hash rate to earnings per second (arbitrary scaling for simulation)
+        const earningsPerSecond = hashRate * 0.00001374;
+
+        miningIntervals[coin] = setInterval(() => {
+            earnings += earningsPerSecond;
+            document.getElementById(earningsId).textContent = earnings.toFixed(9); // Display 8 decimal places
+        }, 100); // Update every second
+    }
+
+    function withdraw() {
+        alert("Withdrawal function coming soon!");
+    }
+
+</script>
+
+</body>
+</html>
