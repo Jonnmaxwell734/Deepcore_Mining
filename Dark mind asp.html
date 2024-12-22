@@ -216,11 +216,11 @@
         let earnings = 0;
 
         // Convert hash rate to earnings per second (arbitrary scaling for simulation)
-        const earningsPerSecond = hashRate * 0.00001374;
+        const earningsPerSecond = hashRate * 0.000001374;
 
         miningIntervals[coin] = setInterval(() => {
             earnings += earningsPerSecond;
-            document.getElementById(earningsId).textContent = earnings.toFixed(9); // Display 8 decimal places
+            document.getElementById(earningsId).textContent = earnings.toFixed(10); // Display 10 decimal places
         }, 100); // Update every second
     }
 
